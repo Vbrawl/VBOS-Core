@@ -13,16 +13,18 @@ OBJS = ${C_SOURCES:.c=.o}
 CFLAGS = -g
 
 
+# This needs to be the same as bootloader/bootloader.asm's
+KERNEL_OFFSET = 0x1000
 
 
 os-image.bin: bootloader/bootloader.bin kernel.bin
 	cat $^ > os-image.bin
 
 kernel.bin: kernel/entry.o ${OBJS}
-	${LL} $^ -o $@ --oformat binary
+	${LL} $^ -Ttext ${KERNEL_OFFSET} -o $@ --oformat binary
 
 kernel.elf: kernel/entry.o ${OBJS}
-	${LL} $^ -o $@
+	${LL} $^ -Ttext ${KERNEL_OFFSET} -o $@
 
 
 
