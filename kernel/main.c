@@ -9,16 +9,7 @@ void main() {
 	//char c = text[0];
 	//vga[0] = c;
 	//vga[1] = WHITE_ON_BLACK;
-	char* test = 0xfff00;
-	test[0] = 'H';
-	test[1] = 'e';
-	test[2] = 'l';
-	test[3] = 'l';
-	test[4] = 'o';
+	char* test = "Hello World!";
 
-	vga_print_string(test, WHITE_ON_BLACK);
-
-	vga_print_char(*test, WHITE_ON_BLACK);
-
-	vga_print_char('H', WHITE_ON_BLACK);
+	vga_print_string("Hello World!", WHITE_ON_BLACK);
 }
