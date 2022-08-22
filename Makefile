@@ -10,7 +10,7 @@ TO_CLEAN = $(wildcard */*.o */*.elf */*.bin *.o *.elf *.bin)
 
 OBJS = ${C_SOURCES:.c=.o}
 
-CFLAGS = -g
+CFLAGS = -g -std=c99
 
 
 # This needs to be the same as bootloader/bootloader.asm's
