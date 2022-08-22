@@ -44,3 +44,7 @@ int vga_print_string_at(int offset, const char* text, const char attribute); // 
 
 int vga_print_char(const char character, const char attribute);
 int vga_print_string(const char* text, const char attribute);
+
+
+// Clear screen
+void vga_clear_screen();

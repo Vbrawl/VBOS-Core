@@ -80,7 +80,7 @@ int vga_print_string_at(int offset, const char* text, const char attribute) {
 	int i = 0;
 
 	while(text[i] != 0) {
-		if(offset > MAX_OFFSET) {
+		if(offset >= MAX_OFFSET) {
 			vga[MAX_OFFSET-2] = 'E';
 			vga[MAX_OFFSET-1] = RED_ON_WHITE;
 			offset = MAX_OFFSET;
@@ -117,4 +117,18 @@ int vga_print_string(const char* text, const char attribute) {
 
 	vga_set_cursor(offset);
 	return offset;
+}
+
+
+
+
+// Clear screen
+void vga_clear_screen() {
+	char* vga = VGA_ADDRESS;
+
+	for(int i = 0; i < MAX_OFFSET; i++) {
+		vga[i] = 0;
+	}
+
+	vga_set_cursor(0);
 }
