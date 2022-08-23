@@ -59,7 +59,7 @@ void vga_set_cursor(int offset) {
 int vga_print_char_at(int offset, const char character, const char attribute) {
 
 	char* vga = VGA_ADDRESS;
-	if(offset > MAX_OFFSET) {
+	if(offset >= MAX_OFFSET) {
 		vga[MAX_OFFSET-2] = 'E';
 		vga[MAX_OFFSET-1] = RED_ON_WHITE;
 
