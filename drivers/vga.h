@@ -1,4 +1,7 @@
+#ifndef VGA_DRIVER_H
+#define VGA_DRIVER_H
 
+#include "../extras/types.h"
 
 
 #define VGA_ADDRESS			(char*)0xb8000
@@ -24,7 +27,7 @@ extern int VGA_MODE;
 
 
 /* General */
-short vga_is_mode(int query_mode);
+bool vga_is_mode(int query_mode);
 
 
 /* Text Mode */
@@ -39,8 +42,8 @@ int vga_get_cursor();
 void vga_set_cursor(int offset);
 
 // Printing
-int vga_print_char_at(int offset, const char character, const char attribute); // Doesn't move the cursor
-int vga_print_string_at(int offset, const char* text, const char attribute); // Doesn't move the cursor
+int vga_print_char_at(int offset, const char character, const char attribute, bool scroll_if_needed); // Doesn't move the cursor
+int vga_print_string_at(int offset, const char* text, const char attribute, bool scroll_if_needed); // Doesn't move the cursor
 
 int vga_print_char(const char character, const char attribute);
 int vga_print_string(const char* text, const char attribute);
@@ -48,3 +51,8 @@ int vga_print_string(const char* text, const char attribute);
 
 // Clear screen
 void vga_clear_screen();
+
+/* Hidden Functions */
+// void _vga_clear_range(int start_offset, int end_offset);
+
+#endif
