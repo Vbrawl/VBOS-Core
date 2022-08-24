@@ -3,8 +3,8 @@ LL = /opt/i386elfgcc/bin/i386-elf-ld
 GDB = /usr/bin/gdb
 
 
-C_SOURCES = $(wildcard kernel/*.c drivers/*.c)
-HEADERS = $(wildcard kernel/*.h drivers/*.h)
+C_SOURCES = $(wildcard */*.c)
+HEADERS = $(wildcard */*.h)
 
 TO_CLEAN = $(wildcard */*.o */*.elf */*.bin *.o *.elf *.bin)
 

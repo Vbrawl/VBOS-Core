@@ -3,6 +3,7 @@
 
 KERNEL_OFFSET equ 0x1000
 
+
 ; store our boot drive
 mov [DRIVE_ID], dl
 
@@ -20,7 +21,7 @@ call bios_print_ln
 
 
 ; load sectors from drive
-mov dh, 0x02		; 2 sectors
+mov dh, 0x03		; 2 sectors
 mov dl, [DRIVE_ID]	; load from our drive
 mov bx, KERNEL_OFFSET
 call bios_load_disk
