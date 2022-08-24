@@ -177,7 +177,7 @@ void vga_clear_screen() {
 
 
 // Hidden Function
-void _vga_clear_range(int start_offset, int end_offset) {
+void _vga_clear_range(size_t start_offset, size_t end_offset) {
 	char* vga = VGA_ADDRESS;
 
 	for(int i = start_offset; i < end_offset; i++) {
