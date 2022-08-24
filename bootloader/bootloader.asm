@@ -2,6 +2,7 @@
 [org 0x7c00]
 
 KERNEL_OFFSET equ 0x1000
+SECTORS_TO_LOAD equ 0x3
 
 
 ; store our boot drive
@@ -21,7 +22,7 @@ call bios_print_ln
 
 
 ; load sectors from drive
-mov dh, 0x03		; 2 sectors
+mov dh, SECTORS_TO_LOAD	; 2 sectors
 mov dl, [DRIVE_ID]	; load from our drive
 mov bx, KERNEL_OFFSET
 call bios_load_disk
