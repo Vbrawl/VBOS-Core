@@ -1,6 +1,12 @@
 #include "../drivers/vga.h"
 #include "../extras/memutils.h"
 
+#ifdef __32BIT__
+#include "../cpu/__32BIT__/idt.h"
+#endif
+
+
+
 int hide_main() {}
 
 
