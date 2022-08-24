@@ -2,15 +2,18 @@ CC = /opt/i386elfgcc/bin/i386-elf-gcc
 LL = /opt/i386elfgcc/bin/i386-elf-ld
 GDB = /usr/bin/gdb
 
+# TARGET_ARCH can be __32BIT__ or __64BIT__
+TARGET_ARCH = __32BIT__
 
-C_SOURCES = $(wildcard */*.c)
-HEADERS = $(wildcard */*.h)
 
-TO_CLEAN = $(wildcard */*.o */*.elf */*.bin *.o *.elf *.bin)
+C_SOURCES = $(wildcard */*.c cpu/${TARGET_ARCH}/*.c)
+HEADERS = $(wildcard */*.h cpu/${TARGET_ARCH}/*.h)
+
+TO_CLEAN = $(wildcard */*.o */*.elf */*.bin *.o *.elf *.bin cpu/*/*.o cpu/*/*.elf cpu/*/*.bin)
 
 OBJS = ${C_SOURCES:.c=.o}
 
-CFLAGS = -g -std=c99
+CFLAGS = -g -std=c99 -D${TARGET_ARCH}
 
 
 # This needs to be the same as bootloader/bootloader.asm's
