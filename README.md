@@ -1,21 +1,21 @@
-#VBOS?
+# VBOS?
 VBOS stands for VBrawl's OS (I'm not good with names...) and is (going to be) a general purpose OS. It's going to have server editions and versions with GUI.
 
 It's going to have a lot of features such as, app containerization, 1-process mode, and be more secure than everything else.
 
 
 
-#What about the core?
+# What about the core?
 It's the kernel of VBOS, the main functionality and some drivers are here.
 
 
-#State
+# State
 We currently have the bootloader and a really basic kernel that, with the help
 of some custom drivers, is able to print stuff to the screen.
 
 
 
-#Dependencies
+# Dependencies
 To be able to build and run this kernel in qemu you have to do the following:
 
 - Install GCC
@@ -23,7 +23,7 @@ To be able to build and run this kernel in qemu you have to do the following:
 - Build Cross-Compiler GCC for i386
 
 
-#Installing Dependencies
+# Installing Dependencies
 1) Installing Gcc, Qemu and Nasm:
 
 ```
