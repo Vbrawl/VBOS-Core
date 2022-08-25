@@ -10,8 +10,11 @@ It's the kernel of VBOS, the main functionality and some drivers are here.
 
 
 # State
-We currently have the bootloader and a really basic kernel that, with the help
-of some custom drivers, is able to print stuff to the screen.
+We currently have support for interrupts.
+
+We still need to implement them though.
+
+We only implemented Division-By-Zero and Debug interrupts for now.
 
 
 
