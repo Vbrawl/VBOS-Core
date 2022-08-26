@@ -43,6 +43,8 @@ clean:
 run: os-image.bin
 	qemu-system-i386 -fda $<
 
+crc: clean run
+	make clean
 
 
 
