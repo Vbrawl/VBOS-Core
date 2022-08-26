@@ -42,6 +42,10 @@ void main() {
 		"int $29;"
 		"int $30;"
 		"int $31;"
+
+		"int $32;"
+		"int $33;"
+		"int $34;"
 	);
 	//int a = 2/0;
 }
