@@ -23,7 +23,7 @@ void main() {
 		"int $10;"
 		"int $11;"
 		"int $12;"
-		"int $13;"
+//		"int $13;"	// General Protection Fault
 		"int $14;"
 		"int $15;"
 		"int $16;"
@@ -47,5 +47,5 @@ void main() {
 		"int $33;"
 		"int $34;"
 	);
-	//int a = 2/0;
+	int a = 2/0;
 }
