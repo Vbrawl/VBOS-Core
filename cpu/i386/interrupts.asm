@@ -34,7 +34,7 @@ backendisr%1:
 
 
 %assign i 0
-%rep 6
+%rep 32
 	interrupt_code i
 %assign i i+1
 %endrep
