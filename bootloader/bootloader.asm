@@ -2,7 +2,7 @@
 [org 0x7c00]
 
 KERNEL_OFFSET equ 0x1000
-SECTORS_TO_LOAD equ 0x5
+SECTORS_TO_LOAD equ 0x10
 
 
 ; store our boot drive
