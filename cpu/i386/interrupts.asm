@@ -33,8 +33,19 @@ backendisr%1:
 %endmacro
 
 
+
 %assign i 0
 %rep 35
 	interrupt_code i
 %assign i i+1
 %endrep
+
+
+global backendisr_Array
+
+backendisr_Array:
+	%assign i 0
+	%rep 35
+		dd backendisr%+i
+	%assign i i+1
+	%endrep

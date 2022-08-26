@@ -13,44 +13,12 @@
 #include "../extras/types.h"
 
 
-void init_idt() {
-idt_set_entry(0, (uintptr_t)backendisr0);
-idt_set_entry(1, (uintptr_t)backendisr1);
-idt_set_entry(2, (uintptr_t)backendisr2);
-idt_set_entry(3, (uintptr_t)backendisr3);
-idt_set_entry(4, (uintptr_t)backendisr4);
-idt_set_entry(5, (uintptr_t)backendisr5);
-idt_set_entry(6, (uintptr_t)backendisr6);
-idt_set_entry(7, (uintptr_t)backendisr7);
-idt_set_entry(8, (uintptr_t)backendisr8);
-idt_set_entry(9, (uintptr_t)backendisr9);
-idt_set_entry(10, (uintptr_t)backendisr10);
-idt_set_entry(11, (uintptr_t)backendisr11);
-idt_set_entry(12, (uintptr_t)backendisr12);
-idt_set_entry(13, (uintptr_t)backendisr13);
-idt_set_entry(14, (uintptr_t)backendisr14);
-idt_set_entry(15, (uintptr_t)backendisr15);
-idt_set_entry(16, (uintptr_t)backendisr16);
-idt_set_entry(17, (uintptr_t)backendisr17);
-idt_set_entry(18, (uintptr_t)backendisr18);
-idt_set_entry(19, (uintptr_t)backendisr19);
-idt_set_entry(20, (uintptr_t)backendisr20);
-idt_set_entry(21, (uintptr_t)backendisr21);
-idt_set_entry(22, (uintptr_t)backendisr22);
-idt_set_entry(23, (uintptr_t)backendisr23);
-idt_set_entry(24, (uintptr_t)backendisr24);
-idt_set_entry(25, (uintptr_t)backendisr25);
-idt_set_entry(26, (uintptr_t)backendisr26);
-idt_set_entry(27, (uintptr_t)backendisr27);
-idt_set_entry(28, (uintptr_t)backendisr28);
-idt_set_entry(29, (uintptr_t)backendisr29);
-idt_set_entry(30, (uintptr_t)backendisr30);
-idt_set_entry(31, (uintptr_t)backendisr31);
+extern void* backendisr_Array[];
 
-// Extra ISRs
-idt_set_entry(32, (uintptr_t)backendisr32);
-idt_set_entry(33, (uintptr_t)backendisr33);
-idt_set_entry(34, (uintptr_t)backendisr34);
+void init_idt() {
+	for(int i = 0; i < 35; i++) {
+		idt_set_entry(i, (uintptr_t)backendisr_Array[i]);
+	}
 
 	enable_idt();
 
