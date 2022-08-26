@@ -10,11 +10,11 @@ It's the kernel of VBOS, the main functionality and some drivers are here.
 
 
 # State
-We currently have support for interrupts.
+We currently can catch all interrupts and show messages that describe them.
 
-We still need to implement them though.
+We are also able to reprogram the PIC to add the offset we want.
 
-We only implemented Division-By-Zero and Debug interrupts for now.
+Next goal is to add Keyboard support.
 
 
 
