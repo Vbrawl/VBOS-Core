@@ -9,7 +9,10 @@ void init_idt();
 
 void isr_0(); // Division by zero
 void isr_1(); // Debug
-
+void isr_2(); // Non-Maskable
+void isr_3(); // Breakpoint
+void isr_4(); // Into Detected Overflow
+void isr_5(); // Out of Bounds
 
 
 /*    "Non Maskable Interrupt",
