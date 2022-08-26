@@ -16,13 +16,26 @@
 extern void* backendisr_Array[];
 
 void init_idt() {
-	for(int i = 0; i < 35; i++) {
+	for(int i = 0; i < 256; i++) {
 		idt_set_entry(i, (uintptr_t)backendisr_Array[i]);
 	}
 
 	enable_idt();
 
 	pic_reinit(MASTER_PIC_OFFSET, SLAVE_PIC_OFFSET);
+}
+
+
+
+
+/**********************
+* Common Null Handler *
+**********************/
+void isr_null(unsigned char idt_code) {
+	vga_print_string("ERROR: ISR Null Handler\n\r", RED_ON_WHITE);
+
+	#warning *** NULL handler is configured to freeze everything, You may want to change that ***
+	__asm__ volatile("hlt");
 }
 
 
@@ -163,7 +176,8 @@ void isr_12() {
 void isr_13() {
 	vga_print_string("ERROR: General Protection Fault\n\r", RED_ON_WHITE);
 
-	#warning *** Add an action for General Protection Fault ***
+	#warning *** General Protection Fault handler is configured to freeze the machine. ***
+	__asm__ volatile("hlt");
 }
 
 /*************

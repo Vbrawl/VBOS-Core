@@ -8,7 +8,7 @@
 
 
 void init_idt();
-
+void isr_null(unsigned char idt_code);
 
 
 void isr_0(); // Division By Zero
@@ -57,8 +57,6 @@ void isr_31();
 void isr_32();
 void isr_33();
 void isr_34();
-
-
 
 
 #endif
