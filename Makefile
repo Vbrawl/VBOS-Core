@@ -1,6 +1,8 @@
 CC = /opt/i386elfgcc/bin/i386-elf-gcc
 LL = /opt/i386elfgcc/bin/i386-elf-ld
 GDB = /usr/bin/gdb
+PYTHON = /usr/bin/python3
+
 
 
 # Takes a name of the subdirs under "cpu/"
@@ -20,11 +22,12 @@ CFLAGS = -g -std=c99 -D${TARGET_ARCH}=${TARGET_ARCH}
 KERNEL_OFFSET = 0x1000
 
 
-os-image.bin: bootloader/bootloader.bin kernel.bin
-	cat $^ > os-image.bin
+os-image.bin: kernel.bin bootloader/bootloader.bin
+	cat bootloader/bootloader.bin $< > os-image.bin
 
 kernel.bin: kernel/entry.o ${OBJS}
 	${LL} $^ -Ttext ${KERNEL_OFFSET} -o $@ --oformat binary
+	${PYTHON} SectorUpdater.py
 
 kernel.elf: kernel/entry.o ${OBJS}
 	${LL} $^ -Ttext ${KERNEL_OFFSET} -o $@

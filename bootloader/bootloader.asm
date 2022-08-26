@@ -2,7 +2,6 @@
 [org 0x7c00]
 
 KERNEL_OFFSET equ 0x1000
-SECTORS_TO_LOAD equ 32
 
 
 ; store our boot drive
@@ -43,6 +42,7 @@ PROTECTED_MODE_TEXT: db "Protected Mode...", 0
 %include "bootloader/disk.asm"
 %include "bootloader/gdt-table.asm"
 %include "bootloader/gdt-switch.asm"
+%include "bootloader/read_sectors.asm"
 
 times 510-($-$$) db 0
 dw 0xaa55

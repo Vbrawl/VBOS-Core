@@ -1,0 +1,1 @@
+SECTORS_TO_LOAD equ 32
