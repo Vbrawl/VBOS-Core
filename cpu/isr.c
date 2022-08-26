@@ -5,6 +5,8 @@
 // Include "idt.h" from <TARGET_ARCH> directory
 #include TOSTRING(EXPAND(TARGET_ARCH)/idt.h)
 
+// Include "pic.h" from <TARGET_ARCH> directory
+#include TOSTRING(EXPAND(TARGET_ARCH)/pic.h)
 
 
 #include "../drivers/vga.h"
@@ -45,7 +47,14 @@ idt_set_entry(29, (uintptr_t)backendisr29);
 idt_set_entry(30, (uintptr_t)backendisr30);
 idt_set_entry(31, (uintptr_t)backendisr31);
 
+// Extra ISRs
+idt_set_entry(32, (uintptr_t)backendisr32);
+idt_set_entry(33, (uintptr_t)backendisr33);
+idt_set_entry(34, (uintptr_t)backendisr34);
+
 	enable_idt();
+
+	pic_reinit(MASTER_PIC_OFFSET, SLAVE_PIC_OFFSET);
 }
 
 
@@ -348,4 +357,40 @@ void isr_31() {
 	vga_print_string("ERROR: Reserved (31)\n\r", RED_ON_WHITE);
 
 	#warning *** No action for Reserved (31) ***
+}
+
+
+
+
+
+/*************
+* Extra ISRs *
+*************/
+
+
+/***********
+* Free ISR *
+***********/
+void isr_32() {
+	vga_print_string("ERROR: Free ISR (32)\n\r", WHITE_ON_BLACK);
+
+	#warning *** No action for free ISR (32) ***
+}
+
+/***********
+* Free ISR *
+***********/
+void isr_33() {
+        vga_print_string("ERROR: Free ISR (33)\n\r", WHITE_ON_BLACK);
+
+        #warning *** No action for free ISR (33) ***
+}
+
+/***********
+* Free ISR *
+***********/
+void isr_34() {
+        vga_print_string("ERROR: Free ISR (34)\n\r", WHITE_ON_BLACK);
+
+        #warning *** No action for free ISR (34) ***
 }

@@ -2,6 +2,11 @@
 #define ISR_H
 
 
+#define MASTER_PIC_OFFSET	32
+#define SLAVE_PIC_OFFSET	39
+
+
+
 void init_idt();
 
 
@@ -46,6 +51,12 @@ void isr_29();
 void isr_30();
 void isr_31();
 
+/*************
+* Extra ISRs *
+*************/
+void isr_32();
+void isr_33();
+void isr_34();
 
 
 
@@ -87,7 +98,12 @@ extern void backendisr30();
 extern void backendisr31();
 
 
-
+/*********************
+* Extra Backend ISRs *
+*********************/
+extern void backendisr32();
+extern void backendisr33();
+extern void backendisr34();
 
 
 #endif
