@@ -41,12 +41,12 @@ backendisr%1:
 	iret	; Return
 %endmacro
 
+extern isr_null
 %macro null_interrupt_code 1
 global backendisr%1
-extern isr_null
 
 backendisr%1:
-	cli	; Disable interrupts
+	;cli	; Disable interrupts
 
 	IDT_SAVE_CPU_STATE
 
@@ -56,7 +56,7 @@ backendisr%1:
 
 	IDT_RESTORE_CPU_STATE
 
-	sti	; Enable interrupts
+	;sti	; Enable interrupts
 	iret	; Return
 %endmacro
 
