@@ -19,7 +19,6 @@
 
 
 void pic_reinit(int master_offset, int slave_offset) {
-
 	port_bout(MASTER_PIC_COM, ICW1_INIT | ICW1_ICW4);
 	port_bout(SLAVE_PIC_COM, ICW1_INIT | ICW1_ICW4);
 
@@ -37,4 +36,24 @@ void pic_reinit(int master_offset, int slave_offset) {
 
 	port_bout(MASTER_PIC_DAT, ICW4_8086);
 	port_bout(SLAVE_PIC_DAT, ICW4_8086);
+
+	io_wait();
+
+	port_bout(MASTER_PIC_DAT, 0);
+	port_bout(SLAVE_PIC_DAT, 0);
+}
+
+
+void pic_set_mask(unsigned char master_mask, unsigned char slave_mask) {
+
+	master_mask = master_mask & 0xFD;
+
+	port_bout(MASTER_PIC_DAT, master_mask);
+	port_bout(SLAVE_PIC_DAT, slave_mask);
+}
+
+
+void pic_accept(bool slave) {
+	if(slave) port_bout(SLAVE_PIC_COM, PIC_ACCEPT);
+	port_bout(MASTER_PIC_COM, PIC_ACCEPT);
 }
