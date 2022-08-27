@@ -2,8 +2,8 @@
 #define ISR_H
 
 
-#define MASTER_PIC_OFFSET	32
-#define SLAVE_PIC_OFFSET	39
+#define MASTER_PIC_OFFSET	0x20 //32
+#define SLAVE_PIC_OFFSET	0x28 //39
 
 
 

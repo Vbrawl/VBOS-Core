@@ -10,20 +10,25 @@
 
 
 #include "../drivers/vga.h"
+#include "../drivers/keyboard.h"
 #include "../extras/types.h"
 
 
 extern void* backendisr_Array[];
 
 void init_idt() {
+
 	for(int i = 0; i < 256; i++) {
 		idt_set_entry(i, (uintptr_t)backendisr_Array[i]);
 	}
 
-	enable_idt();
-
 	pic_reinit(MASTER_PIC_OFFSET, SLAVE_PIC_OFFSET);
+	pic_set_mask(0xFF, 0xFF);
+
+	enable_idt();
+	__asm__("sti"); // Enable interrupts
 }
+
 
 
 
@@ -35,7 +40,7 @@ void isr_null(unsigned char idt_code) {
 	vga_print_string("ERROR: ISR Null Handler\n\r", RED_ON_WHITE);
 
 	#warning *** NULL handler is configured to freeze everything, You may want to change that ***
-	__asm__ volatile("hlt");
+	//__asm__ volatile("hlt");
 }
 
 
@@ -46,7 +51,7 @@ void isr_0() {
 	vga_print_string("ERROR: Division By Zero\n\r", RED_ON_WHITE);
 
 	#warning *** You may want to change this action (DivBy0) ***
-	__asm__ volatile("cli; hlt");
+//	__asm__ volatile("cli; hlt");
 }
 
 
@@ -360,12 +365,18 @@ void isr_32() {
 }
 
 /***********
-* Free ISR *
+* Keyboard *
 ***********/
 void isr_33() {
-        vga_print_string("ERROR: Free ISR (33)\n\r", WHITE_ON_BLACK);
+        vga_print_string("ERROR: Keyboard Interrupt (33)\n\r", WHITE_ON_BLACK);
+
+	keyboard_notify();
 
         #warning *** No action for free ISR (33) ***
+
+	pic_accept(false);
+
+	vga_print_string("after\n\r", WHITE_ON_BLACK);
 }
 
 /***********
