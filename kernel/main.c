@@ -9,7 +9,7 @@ int hide_main() {}
 
 void main() {
 	init_idt();
-
+/*
 	__asm__(
 		"int $1;"
 		"int $2;"
@@ -46,6 +46,9 @@ void main() {
 		"int $32;"
 		"int $33;"
 		"int $34;"
-	);
-	int a = 2/0;
+	);*/
+//	int a = 2/0;
+
+
+	while(true);
 }
