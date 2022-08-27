@@ -40,4 +40,11 @@ void* safe_memcpy(void* dest, void* src, size_t n);
 
 
 
+
+
+/*****************************
+* "reverse" the memory chunk *
+*****************************/
+void memreverse(void* src, size_t n);
+
 #endif

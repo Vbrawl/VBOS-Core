@@ -31,3 +31,19 @@ void* safe_memcpy(void* dest, void* src, size_t n) {
 	}
 	return dest;
 }
+
+
+
+
+
+void memreverse(void* src, size_t size) {
+
+	char* src_c = src;
+	char backup = 0;
+
+	for(size_t i = 0; i < size; i++, size--) {
+		backup = src_c[i];
+		src_c[i] = src_c[size];
+		src_c[size] = backup;
+	}
+}
