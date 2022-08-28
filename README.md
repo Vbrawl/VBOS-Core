@@ -10,11 +10,13 @@ It's the kernel of VBOS, the main functionality and some drivers are here.
 
 
 # State
-We currently can catch all interrupts and show messages that describe them.
+Recreating the whole OS in object oriented programming (with C, yeah)
 
-We are also able to reprogram the PIC to add the offset we want.
+Already finished the `screen` driver and moved `vga` to `drivers/screen_dependencies/`
 
-Next goal is to add Keyboard support.
+If you are not sure how that's possible see the link below.
+
+* https://github.com/Vbrawl/Classes-In-C
 
 
 
