@@ -9,8 +9,8 @@ PYTHON = /usr/bin/python3
 TARGET_ARCH = i386
 
 
-C_SOURCES = $(wildcard */*.c cpu/${TARGET_ARCH}/*.c)
-HEADERS = $(wildcard */*.h cpu/${TARGET_ARCH}/*.h)
+C_SOURCES = $(wildcard */*.c cpu/${TARGET_ARCH}/*.c drivers/*/*.c)
+HEADERS = $(wildcard */*.h cpu/${TARGET_ARCH}/*.h drivers/*/*.h)
 
 TO_CLEAN = $(wildcard */*.o */*.elf */*.bin *.o *.elf *.bin cpu/*/*.o cpu/*/*.elf cpu/*/*.bin)
 OBJS = ${C_SOURCES:.c=.o cpu/${TARGET_ARCH}/interrupts.o}
