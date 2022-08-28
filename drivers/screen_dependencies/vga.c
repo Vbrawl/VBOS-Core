@@ -1,6 +1,6 @@
 #include "vga.h"
-#include "ports.h"
-#include "../extras/memutils.h"
+#include "../ports.h"
+#include "../../extras/memutils.h"
 
 
 
@@ -9,7 +9,7 @@
 * Hidden Functions *
 *******************/
 // Clear a the space between 2 offsets
-void _vga_clear_range(size_t start_offset, size_t end_offset);
+void _vga_clear_range(char* base_address, size_t start_offset, size_t end_offset);
 
 
 
@@ -40,15 +40,15 @@ bool vga_is_mode(int query_mode) {
 
 // Position
 int vga_calc_offset(int x, int y) {
-	return ((y * MAX_COL) + x) * 2;
+	return ((y * VGA_MAX_COL) + x) * 2;
 }
 
 int vga_calc_col(int offset) {
-	return (offset / 2) % MAX_COL;
+	return (offset / 2) % VGA_MAX_COL;
 }
 
 int vga_calc_row(int offset) {
-	return (offset / 2) / MAX_COL;
+	return (offset / 2) / VGA_MAX_COL;
 }
 
 
@@ -78,16 +78,17 @@ void vga_set_cursor(int offset) {
 
 
 // Printing
-int vga_print_char_at(int offset, const char character, const char attribute, bool scroll_if_needed) {
+int vga_print_char_at(char* base_address, int offset, const char character, const char attribute, bool scroll_if_needed) {
 
 	bool special_char = false;
 	char* vga = VGA_ADDRESS;
+	size_t max_off = vga_calc_offset(VGA_MAX_COL, VGA_MAX_ROW);
 
 	// Parse special characters
 	switch(character) {
 	case '\n': // New Line
 		special_char = true;
-		offset += MAX_COL * 2; // == row + 1
+		offset += VGA_MAX_COL * 2; // == row + 1
 		break;
 
 	case '\r': // Carriage Return
@@ -98,50 +99,50 @@ int vga_print_char_at(int offset, const char character, const char attribute, bo
 	}
 
 
-	if(scroll_if_needed && offset > MAX_OFFSET) {
+	if(scroll_if_needed && offset > max_off) {
 		// Update offset
 		int col = vga_calc_col(offset);
 		int row = vga_calc_row(offset);
 
 
 		// row - MAX_ROW == extra rows
-		offset = MAX_OFFSET - vga_calc_offset(col, row - MAX_ROW);
+		offset = max_off - vga_calc_offset(col, row - VGA_MAX_ROW);
 
 		// Scroll everything up by 1 row
 		safe_memcpy(
-			VGA_ADDRESS, VGA_ADDRESS + MAX_COL*2, offset);
+			vga, vga + VGA_MAX_COL*2, offset);
 
 		// Clear the last row (that wasn't copied/moved)
-		_vga_clear_range(offset, MAX_OFFSET);
+		_vga_clear_range(vga, offset, max_off);
 
 	}
 
 	if (special_char) {
-		vga_set_cursor(vga_calc_offset(0, MAX_ROW-2));
+		vga_set_cursor(vga_calc_offset(0, VGA_MAX_ROW-2));
 	}
 	else {
 		// Print character if possible
-		if(offset < MAX_OFFSET) {
+		if(offset < max_off) {
 			vga[offset] = character;
 			vga[offset+1] = attribute;
 			offset += 2;
 		}
 		else {
-			vga[MAX_OFFSET-2] = 'E';
-			vga[MAX_OFFSET-1] = RED_ON_WHITE;
+			vga[max_off-2] = 'E';
+			vga[max_off-1] = attribute;
 
-			offset = MAX_OFFSET;
+			offset = max_off;
 		}
 	}
 
 	return offset;
 }
 
-int vga_print_string_at(int offset, const char* text, const char attribute, bool scroll_if_needed) {
+int vga_print_string_at(char* base_address, int offset, const char* text, const char attribute, bool scroll_if_needed) {
 	int i = 0;
 
 	while(text[i] != 0) {
-		offset = vga_print_char_at(offset, text[i], attribute, scroll_if_needed);
+		offset = vga_print_char_at(base_address, offset, text[i], attribute, scroll_if_needed);
 		i++;
 	}
 
@@ -149,18 +150,18 @@ int vga_print_string_at(int offset, const char* text, const char attribute, bool
 }
 
 
-int vga_print_char(const char character, const char attribute) {
+int vga_print_char(char* base_address, const char character, const char attribute) {
 	int offset = vga_get_cursor();
-	offset = vga_print_char_at(offset, character, attribute, /*Allow Scrolling*/true);
+	offset = vga_print_char_at(base_address, offset, character, attribute, /*Allow Scrolling*/true);
 
 	vga_set_cursor(offset);
 	return offset;
 }
 
 
-int vga_print_string(const char* text, const char attribute) {
+int vga_print_string(char* base_address, const char* text, const char attribute) {
 	int offset = vga_get_cursor();
-	offset = vga_print_string_at(offset, text, attribute, /*Allow Scrolling*/true);
+	offset = vga_print_string_at(base_address, offset, text, attribute, /*Allow Scrolling*/true);
 
 	vga_set_cursor(offset);
 	return offset;
@@ -170,17 +171,15 @@ int vga_print_string(const char* text, const char attribute) {
 
 
 // Clear screen
-void vga_clear_screen() {
-	_vga_clear_range(0, MAX_OFFSET);
+void vga_clear_screen(char* base_address) {
+	_vga_clear_range(base_address, 0, vga_calc_offset(VGA_MAX_COL, VGA_MAX_ROW));
 	vga_set_cursor(0);
 }
 
 
 // Hidden Function
-void _vga_clear_range(size_t start_offset, size_t end_offset) {
-	char* vga = VGA_ADDRESS;
-
+void _vga_clear_range(char* base_address, size_t start_offset, size_t end_offset) {
 	for(int i = start_offset; i < end_offset; i++) {
-		vga[i] = 0;
+		base_address[i] = 0;
 	}
 }
