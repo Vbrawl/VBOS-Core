@@ -1,4 +1,4 @@
-#include "../drivers/vga.h"
+#include "../drivers/screen.h"
 #include "../extras/memutils.h"
 
 #include "../cpu/isr.h"
@@ -9,6 +9,11 @@ int hide_main() {}
 
 void main() {
 	init_idt();
+
+	screen_init_defaults();
+
+
+	screen_write(&VGA_SCREEN, "Hello World!\n\r", false);
 /*
 	__asm__(
 		"int $1;"
