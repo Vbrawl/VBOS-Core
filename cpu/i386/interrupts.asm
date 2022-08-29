@@ -11,6 +11,7 @@
 %endmacro
 
 
+; Macro to easily restore CPU state
 %macro IDT_RESTORE_CPU_STATE 0
 	pop eax
 	mov ds, ax
@@ -21,11 +22,9 @@
 %endmacro
 
 
-
-
+; Macro to create call a handler for each ISR
+extern main_isr_handler ; <-- isr_null
 %macro interrupt_code 1
-global backendisr%1
-extern isr_%1
 
 backendisr%1:
 	cli	; Disable interrupts
@@ -33,7 +32,9 @@ backendisr%1:
 	IDT_SAVE_CPU_STATE
 
 	; Call actual handler
-	call isr_%1
+	push word %1
+	call main_isr_handler ; <-- isr_null
+	pop ax
 
 	IDT_RESTORE_CPU_STATE
 
@@ -41,40 +42,18 @@ backendisr%1:
 	iret	; Return
 %endmacro
 
-extern isr_null
-%macro null_interrupt_code 1
-global backendisr%1
 
-backendisr%1:
-	;cli	; Disable interrupts
-
-	IDT_SAVE_CPU_STATE
-
-	; Call actual handler
-	push byte %1
-	call isr_null
-
-	IDT_RESTORE_CPU_STATE
-
-	;sti	; Enable interrupts
-	iret	; Return
-%endmacro
-
-
+; Write the macro 256 times (from 0 to 255)
 %assign i 0
-%rep 35
+%rep 256
 	interrupt_code i
 %assign i i+1
 %endrep
 
-%assign i 35
-%rep 221
-	null_interrupt_code i
-%assign i i+1
-%endrep
 
+; An array to easily assign assign
+; all handlers to the IDT from C.
 global backendisr_Array
-
 backendisr_Array:
 	%assign i 0
 	%rep 256
