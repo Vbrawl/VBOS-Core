@@ -12,14 +12,16 @@ void main() {
 
 	screen_init_defaults();
 
+	screen_clear(&VGA_SCREEN);
 
 	screen_write(&VGA_SCREEN, "Hello World!\n\r", false);
-/*
+
 	__asm__(
-		"int $1;"
-		"int $2;"
+//		"int $1;"
+//		"hlt"
+//		"int $2;"
 		"int $3;"
-		"int $4;"
+/*		"int $4;"
 		"int $5;"
 		"int $6;"
 		"int $7;"
@@ -28,8 +30,8 @@ void main() {
 		"int $10;"
 		"int $11;"
 		"int $12;"
-//		"int $13;"	// General Protection Fault
-		"int $14;"
+*/		"int $13;"	// General Protection Fault
+/*		"int $14;"
 		"int $15;"
 		"int $16;"
 		"int $17;"
@@ -50,10 +52,9 @@ void main() {
 
 		"int $32;"
 		"int $33;"
-		"int $34;"
-	);*/
+		"int $34;"*/
+	);
 //	int a = 2/0;
-
 
 	while(true);
 }
