@@ -1,1 +1,4 @@
 bootloader/read_sectors.asm
+*.o
+*.elf
+*.bin
