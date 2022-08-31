@@ -15,8 +15,6 @@ typedef struct {
 	char normal_colour;
 	char error_colour;
 
-	//_this.cursor_offset;
-
 	char connection_type;
 } screen_t;
 
