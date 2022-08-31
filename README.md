@@ -1,3 +1,10 @@
+# CLOSED
+VBOS was never a big OS or kernel, but that's the end of it's life..
+
+I am planning to make another OS, I'll make a better plan to make it
+more modular, robust and stable than VBOS would ever be.
+
+
 # VBOS?
 VBOS stands for VBrawl's OS (I'm not good with names...) and is (going to be) a general purpose OS. It's going to have server editions and versions with GUI.
 
@@ -12,7 +19,8 @@ It's the kernel of VBOS, the main functionality and some drivers are here.
 # State
 Recreating the whole OS in object oriented programming (with C, yeah)
 
-Already finished the `screen` driver and moved `vga` to `drivers/screen_dependencies/`
+At the time, the keyboard support for this OS is gone.
+
 
 If you are not sure how that's possible see the link below.
 

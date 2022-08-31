@@ -49,6 +49,11 @@ void main_isr_handler(unsigned char idt_code) {
 			ptr(idt_code);
 		}
 	}
+
+
+	pic_accept(false);
+	//pic_accept(idt_code >= SLAVE_PIC_OFFSET);
+	//__asm__("sti");
 }
 
 

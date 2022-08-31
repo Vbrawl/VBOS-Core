@@ -52,7 +52,6 @@ void pic_set_mask(unsigned char master_mask, unsigned char slave_mask) {
 	port_bout(SLAVE_PIC_DAT, slave_mask);
 }
 
-
 void pic_accept(bool slave) {
 	if(slave) port_bout(SLAVE_PIC_COM, PIC_ACCEPT);
 	port_bout(MASTER_PIC_COM, PIC_ACCEPT);

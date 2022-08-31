@@ -19,6 +19,7 @@ typedef struct {
 } screen_t;
 
 
+void screen_init_defaults();
 
 screen_t screen_init(unsigned char type);
 void screen_write(screen_t* _this, char* text, bool error);
